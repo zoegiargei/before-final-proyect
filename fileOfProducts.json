@@ -1,0 +1,13 @@
+[
+	{
+		"title": "hola2",
+		"description": "descripcion de hola2",
+		"code": "code124",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría de hola",
+		"thumbnail": [],
+		"id": "598234cb-0e35-4220-a0ae-c838c8e0ee81"
+	}
+]
