@@ -16,6 +16,7 @@ Programming exercise of backend with javascript
 * [Dependencias](#Dependencias)
 * [Tecnologías utilizadas](#Tecnologías-utilizadas)
 * [Vista previa del proyecto](#Vista-previa-del-proyecto)
+* [JSON para test](#Json-para-test)
 
 ***
 
@@ -58,3 +59,18 @@ O también clonando el repositorio
 ***
 
 ### Vista previa del proyecto
+
+***
+
+### Json para test
+
+{
+		"title": "Martillo",
+		"description": "descripcion del martillo",
+		"code": "code124",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría de hola",
+		"thumbnail": []
+ }
