@@ -2,12 +2,12 @@ import express from 'express';
 import Manager from './managers/manager.js';
 import CartsManager from './managers/CartsManager.js'
 
-import routerProducts from './routerProducts.js';
-import routerCarts from './routerCarts.js';
+import routerProducts from './routes/routerProducts.js';
+import routerCarts from './routes/routerCarts.js';
 
 //
 export const productsManager = new Manager("./fileOfProducts.json");
-export const cartsManager = new CartsManager("./fileOfCarts");
+export const cartsManager = new CartsManager("./fileOfCarts.json");
 
 //
 const app = express();

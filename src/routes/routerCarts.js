@@ -18,17 +18,19 @@ routerCarts.get('/:cid', async (req, res) => {
     res.json({cart})
 })
 
-routerCarts.post('/:cid/products/:pid', (req, res) => {
+routerCarts.post('/:cid/products/:pid', async (req, res) => {
 
     try {
         const cid = req.params.cid
         const pid = req.params.pid
     
-        const productById = productsManager.getElementByIdentifier(pid)
-        cartsManager.addToCart(cid, {productById})
+        const productById = await productsManager.getElementByIdentifier(pid)
+        await cartsManager.addToCart(cid, { productById })
 
         res.send({status:"success", message:"Product added to cart"})
+
     } catch (error) {
+
         res.status(400).send({status:"error", error:"Not possible"})
     }
 })
