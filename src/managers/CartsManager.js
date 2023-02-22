@@ -28,7 +28,7 @@ class CartsManager{
 
         const cartsAsJson = JSON.parse(await readFile(this.path, 'utf-8'))
             
-        cartsAsJson.forEach( (cart) =>  {
+        cartsAsJson.forEach( cart =>  {
 
             if(cart.id === cid){
 
@@ -43,16 +43,11 @@ class CartsManager{
                 }else{
                     
                     cart.productsCart.push({ id: pid, quantity: 1 })
+                    console.log(cart.productsCart)
                 }
-
-            }else{
-
-                throw new Error("Not possible add product to cart")
             }
-            
         })
         
-        //Guardamos los carritos con la nueva modificación
         const cartAsStringify = JSON.stringify(cartsAsJson, null, '\t')
         await writeFile(this.path, cartAsStringify)
     };

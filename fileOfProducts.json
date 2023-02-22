@@ -1,13 +1,35 @@
 [
 	{
-		"title": "hola2",
-		"description": "descripcion de hola2",
-		"code": "code124",
+		"title": "Martillo",
+		"description": "descripcion del martillo",
+		"code": "code125",
 		"price": 1000,
 		"status": true,
 		"stock": 200,
-		"category": "categoría de hola",
+		"category": "categoría de Martillo",
 		"thumbnail": [],
-		"id": "598234cb-0e35-4220-a0ae-c838c8e0ee81"
+		"id": "41d10858-f377-4a20-b098-b9e6d68d672f"
+	},
+	{
+		"title": "Destornillador",
+		"description": "descripcion del destornillador",
+		"code": "code126",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría del Destornillador",
+		"thumbnail": [],
+		"id": "3960b4c3-44d4-4eb0-aca4-ba9f8ed1dbe7"
+	},
+	{
+		"title": "Taladro",
+		"description": "descripcion del Taladro",
+		"code": "code127",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría del Taladro",
+		"thumbnail": [],
+		"id": "dde70d76-ae65-4c3c-b4f1-955393d16555"
 	}
 ]
