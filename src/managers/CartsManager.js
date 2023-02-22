@@ -26,17 +26,25 @@ class CartsManager{
 
     async addToCart(cid, pid){
 
-        //obtenemos los carritos guardados en el file
         const cartsAsJson = JSON.parse(await readFile(this.path, 'utf-8'))
-        
-        //Cargamos el producto al carrito que tiene el id=cid
             
         cartsAsJson.forEach( (cart) =>  {
 
             if(cart.id === cid){
-                
-                cart.productsCart.push({ id: pid, quantity: 1 })
-            
+
+                //validar si el producto ya existe en el carrito y aumentar su quantity
+                if(cart.productsCart.find(prod => prod.id === pid)){
+                    
+                    const index = cart.productsCart.findIndex(prod => prod.id === pid)
+                    const aux = [...cart.productsCart]
+                    aux[index].quantity = aux[index].quantity + 1
+                    cart.productsCart = aux
+
+                }else{
+                    
+                    cart.productsCart.push({ id: pid, quantity: 1 })
+                }
+
             }else{
 
                 throw new Error("Not possible add product to cart")
