@@ -5,7 +5,7 @@ class CartsManager{
     constructor(path){
         this.path = path
         this.carts = []
-    }
+    };
 
     async addCart(){
 
@@ -15,43 +15,38 @@ class CartsManager{
         await writeFile(this.path, asStringify)
         
         return newCart
-    }
+    };
 
     async getCartById(id){
 
         const cartsAsStringify = await readFile(this.path, 'utf-8')
         const cartsAsJson = JSON.parse(cartsAsStringify)
         return cartsAsJson.find(cart => cart.id === id)
-    }
+    };
 
-    async addToCart(cid, { product }){
+    async addToCart(cid, pid){
 
         //obtenemos los carritos guardados en el file
         const cartsAsJson = JSON.parse(await readFile(this.path, 'utf-8'))
-
-        //obtenemos la posicion de donde se encuentra nuestro carrito al que le queremos agregar un producto a su array
-        //const indexCart = cartsAsJson.findIndex(cart => cart.id === cid)
-
-        /*         cartsAsJson.forEach(cart => {
+        
+        //Cargamos el producto al carrito que tiene el id=cid
+            
+        cartsAsJson.forEach( (cart) =>  {
 
             if(cart.id === cid){
-                if(cart.products.length > 0){
-                    console.log(cart.products)
-                } else{
-                    cart.products.push({product})
-                }
-            }
-        }) */
+                
+                cart.productsCart.push({ id: pid, quantity: 1 })
+            
+            }else{
 
-        cartsAsJson.map(cart => {
-            if(cart.id === cid){
-                cart.products.push({product})
-                console.log(cart.product)
+                throw new Error("Not possible add product to cart")
             }
+            
         })
-
+        
+        //Guardamos los carritos con la nueva modificación
         const cartAsStringify = JSON.stringify(cartsAsJson, null, '\t')
         await writeFile(this.path, cartAsStringify)
-    }
-}
+    };
+};
 export default CartsManager;

@@ -1,6 +1,11 @@
 [
 	{
-		"id": "c60ce0ee-d233-440b-96c3-306d259c7779",
-		"productsCart": []
+		"id": "c05e489f-2ffe-4cd9-bf53-d9d578125798",
+		"productsCart": [
+			{
+				"id": "598234cb-0e35-4220-a0ae-c838c8e0ee81",
+				"quantity": 1
+			}
+		]
 	}
 ]

@@ -25,8 +25,12 @@ routerCarts.post('/:cid/products/:pid', async (req, res) => {
         const pid = req.params.pid
     
         const productById = await productsManager.getElementByIdentifier(pid)
-        await cartsManager.addToCart(cid, { productById })
 
+        if(!productById){
+            res.status(400).send({status:"error", error:"Product not existing"})
+        }
+        
+        await cartsManager.addToCart(cid, pid)
         res.send({status:"success", message:"Product added to cart"})
 
     } catch (error) {
