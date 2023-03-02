@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { productsManager } from '../main.js';
+import { productsManager } from '../server.js';
 
 const routerProducts = Router();
 
@@ -35,10 +35,12 @@ routerProducts.post('/', async (req, res) => {
 
     try {
 
-        const newProduct = req.body;
-        console.log(newProduct);
+        const data = req.body;
+        console.log(data);
 
-        const savedProduct = await productsManager.addElement(newProduct);
+        const savedProduct = await productsManager.addElement(data);
+
+        //agregar acá req[io].socket.
 
         res.status(201).json({ savedProduct });
     } catch (error) {
@@ -49,20 +51,11 @@ routerProducts.post('/', async (req, res) => {
 
 routerProducts.put('/:pid', async (req, res) => {
     try {
-        const searchedId = req.params.pid;
-        const infoInBody = req.body;
 
-        const allProducts = await productsManager.getElements();
-        console.log(allProducts);
-        //const product = await productsManager.getElementByIdentifier({campo: 'id', value: searchedId})
-        const index = allProducts.findIndex(prod => prod.id === searchedId);
-        allProducts[index] = {
-            ...allProducts[index],
-            ...infoInBody,
-            id: searchedId
-        };
+        const pid = req.params.pid;
+        const data = req.body;
 
-        productsManager.updateElementsFile(allProducts);
+        await productsManager.modifyElement(pid, data)
 
         res.send({ status: "success", message: "Product updated" });
 
@@ -72,23 +65,16 @@ routerProducts.put('/:pid', async (req, res) => {
 });
 
 routerProducts.delete('/:pid', async (req, res) => {
+    try {
+        
+        const pid = req.params.pid
+        productsManager.deleteElement(pid)
+        return res.send({ status: "success", message: "Product deleted" })
 
-    const searchedId = req.params.pid;
-    const allProducts = await productsManager.getElements();
-    const currentLength = allProducts.length;
+    } catch (error) {
 
-    console.log(currentLength);
-
-    const newArray = allProducts.filter(prod => prod.id != searchedId);
-
-    if (newArray.length === currentLength) {
-        return res.status(400).json({ status: "error", error: "Product not found" });
+        return res.status(400).json({ msg: error.message })
     }
-
-    await productsManager.updateElementsFile(newArray);
-
-    return res.send({ status: "success", message: "Product deleted" });
-
 });
 
 export default routerProducts;

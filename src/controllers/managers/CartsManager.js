@@ -1,32 +1,41 @@
 import { writeFile, readFile } from 'fs/promises';
-import Cart from '../classes/Cart.js';
+import Cart from '../../models/Cart.js';
 
 class CartsManager{
+
     constructor(path){
         this.path = path
         this.carts = []
     };
 
+    async read(){
+        const asJson = JSON.parse(await readFile(this.path, 'utf-8'))
+        return asJson
+    }
+
+    async write(){
+        await writeFile(this.path, JSON.stringify(this.carts, null, '\t'))
+    }
+
     async addCart(){
 
         const newCart = new Cart()
+        this.carts = await this.read()
         this.carts.push(newCart)
-        const asStringify = JSON.stringify(this.carts, null, '\t')
-        await writeFile(this.path, asStringify)
+        await this.write()
         
         return newCart
     };
 
     async getCartById(id){
 
-        const cartsAsStringify = await readFile(this.path, 'utf-8')
-        const cartsAsJson = JSON.parse(cartsAsStringify)
+        const cartsAsJson = await this.read()
         return cartsAsJson.find(cart => cart.id === id)
     };
 
     async addToCart(cid, pid){
 
-        const cartsAsJson = JSON.parse(await readFile(this.path, 'utf-8'))
+        const cartsAsJson = await this.read()
             
         cartsAsJson.forEach( cart =>  {
 
@@ -43,13 +52,24 @@ class CartsManager{
                 }else{
                     
                     cart.productsCart.push({ id: pid, quantity: 1 })
-                    console.log(cart.productsCart)
                 }
             }
         })
-        
-        const cartAsStringify = JSON.stringify(cartsAsJson, null, '\t')
-        await writeFile(this.path, cartAsStringify)
+
+        this.carts = cartsAsJson
+        await this.write()
     };
+
+    async replaceOne(id, newElement){
+        
+        this.carts = await this.read()
+        const index = this.carts.findIndex(elem => elem.id === id)
+        
+        if(index === -1){ throw Error("Element not found") }
+
+        this.carts[index] = newElement
+        await this.write()
+    }
+
 };
 export default CartsManager;

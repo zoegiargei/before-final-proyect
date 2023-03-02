@@ -31,5 +31,27 @@
 		"category": "categoría del Taladro",
 		"thumbnail": [],
 		"id": "dde70d76-ae65-4c3c-b4f1-955393d16555"
+	},
+	{
+		"title": "New Title",
+		"description": "New description",
+		"code": "code1277",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría de Martillo",
+		"thumbnail": [],
+		"id": "1fd0a827-8b7f-49d1-897d-82cd35094baa"
+	},
+	{
+		"title": "MartilloNuevo",
+		"description": "descripcion del martillo",
+		"code": "code1297",
+		"price": 1000,
+		"status": true,
+		"stock": 200,
+		"category": "categoría de Martillo",
+		"thumbnail": [],
+		"id": "14916658-1914-48a4-96e5-974fa10c6f57"
 	}
 ]

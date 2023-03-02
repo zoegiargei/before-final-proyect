@@ -10,6 +10,7 @@ class Product{
         if(!stock){throw new Error("Didn't enter the stock")}
         if(!category){throw new Error("Didn't enter the category")}
 
+
         //if(Object.values(product).some(atribute => (atribute === '' || atribute === undefined))){
 
         this.title = title,
