@@ -1,0 +1,40 @@
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+
+    const socketSideClient = io();
+    socketSideClient.emit('message', 'Socket del lado del Cliente conectado!');
+
+    function render(data){
+
+        const html = data
+
+        html.forEach((elem, index) => {
+            document.getElementById('prodInRealTime').innerHTML = `
+                <div class="p-2 m-4">
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item list-group-item-action active" aria-current="true" ><h5>Product: {{ this.title }}</h5></li>
+                        <li class="list-group-item list-group-item-action" >Description: {{this.description}}</li>
+                        <li class="list-group-item list-group-item-action" >Code: {{this.code}}</li>
+                        <li class="list-group-item list-group-item-action" >Price: {{this.price}}</li>
+                        <li class="list-group-item list-group-item-action" >Status: {{this.status}}</li>
+                        <li class="list-group-item list-group-item-action" >Stock: {{this.stock}}</li>
+                        <li class="list-group-item list-group-item-action" >Category: {{this.category}}</li>
+                        <li class="list-group-item list-group-item-action" >Thumbnail: {{this.thumbnail}}</li>
+                    </ul>
+                </div>
+            `
+        })
+    };
+
+    socketSideClient.on('prodInRealTime', data => {
+        
+        console.log(data)
+        render(data)
+    })
+
+</script>
+
+<div id="prodInRealTime"></div>

@@ -45,11 +45,15 @@ const HTTPserver = app.listen(PORT, () => {console.log(`connected to PORT ${PORT
 //
 export const io = new Server( HTTPserver );
 
-io.on('connection', socketSideServer => {
+io.on('connection', async socketSideServer => {
 
     console.log("nuevo cliente conectado!")
-    
-    socketSideServer.on('message', data =>{
+
+    socketSideServer.on('message', data => {
         console.log(data)
     })
+    
+    const allProducts = await productsManager.getElements()
+
+    socketSideServer.emit('prodInRealTime', allProducts)
 })
