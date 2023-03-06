@@ -40,7 +40,9 @@ routerProducts.post('/', async (req, res) => {
 
         const savedProduct = await productsManager.addElement(data);
 
-        //agregar acá req[io].socket.
+        
+        const allProducts = await productsManager.getElements()
+        req['io'].sockets.emit('updateView', allProducts);
 
         res.status(201).json({ savedProduct });
     } catch (error) {

@@ -10,14 +10,13 @@ routerWeb.get('/', async (req, res)=>{
     res.render('index', { title: 'Home', thIsProducts: thIsProducts , products: allProducts}) //Si omito la extensión de index.handlebars el render va a ir a buscar archivos .handlebars por el middleware que definimos antes
 })
 
-routerWeb.get('/realtimeproducts', (req, res)=>{
-    
-    
+routerWeb.get('/realtimeproducts', async (req, res)=>{
+
+    //res.sendFile('productsinrealtime.html', { root: './public'})
     res.render('realTimeProducts', {})
 })
 
 routerWeb.get('/addProducts', async (req, res)=>{
-    
     res.render('addProducts')
 })
 

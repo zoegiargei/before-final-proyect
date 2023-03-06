@@ -1,0 +1,5 @@
+.prodList:last-child{
+    background-color: rgba(172, 255, 47, 0.751);
+    font-size: 25px;
+    border-radius: 15px;
+}
