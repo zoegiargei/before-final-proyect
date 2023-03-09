@@ -1,6 +1,6 @@
 import { writeFile, readFile } from 'fs/promises';
 import Product from '../../models/Product.js'
-import fieldsValidation from '../fileldsValidation.js';
+import fieldsValidation from '../validations/fileldsValidation.js';
 
 class Manager{
     constructor(path){

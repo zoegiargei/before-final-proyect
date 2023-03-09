@@ -6,14 +6,10 @@ import routerProducts from './routers/routerProducts.js';
 import routerCarts from './routers/routerCarts.js';
 import routerWeb from './routers/routerWeb.js';
 import { engine } from 'express-handlebars';
-//import serverIO from './controllers/socketSideServer.js';
 import { Server } from 'socket.io';
-
-//import middleware1 from './controllers/middlewares/middleware1.js'
-
-//Multer (los importamos)
-//Multer --> librería
-//import multer from 'multer';
+import timeNow from './controllers/middlewares/timeNow.js';
+import addToReq from './controllers/middlewares/addToReq.js'
+import mistake from './controllers/middlewares/mistake.js';
 
 //
 export const productsManager = new Manager("./fileOfProducts.json");
@@ -23,22 +19,17 @@ export const cartsManager = new CartsManager("./fileOfCarts.json");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.static('./views'));
 app.use(express.static('./public'));
-//app.use(middleware1);
-app.use((req, res, next) => {
-    req['io'] = io
-    next()
-})
+app.use(timeNow)
+app.use(addToReq)
+app.use(mistake)
+
 
 //
 app.engine('handlebars', engine());
 //settings: .set
 app.set('views', './views');
 app.set('view engine', 'handlebars');
-
-//Multer y middlewares
-//const upload = multer({ dest: 'uploads/' })
 
 //
 app.use('/api/products', routerProducts);
@@ -49,9 +40,7 @@ const port = (process.env.PORT || 8080);
 export const HTTPserver = app.listen(port, () => {console.log(`Server running on port: ${ port }`)});
 
 //
-//serverIO(HTTPserver)
-
-const io = new Server( HTTPserver );
+export const io = new Server( HTTPserver );
 io.on('connection', async socketSideServer => {
 
     console.log("nuevo cliente conectado!")
